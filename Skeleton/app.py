@@ -96,15 +96,16 @@ def p1_move():
 
     error_reason = check_common_error(x, y, 'p1')
     if error_reason is not None:
-        return dumps({'move': game.board, 'invalid': True, 'reason': f'{error_reason}'})
+        return dumps({'move': game.board, 'invalid': True, 'reason': f'{error_reason}', 'winner': game.game_result})
 
+    game.remaining_moves -= 1
     game.board[x][y] = game.player1
     game.current_turn = 'p2'
 
     if is_win(x, y, game.player1):
         game.game_result = 'p1'
 
-    return dumps({'move': game.board, 'invalid': False, 'status': f'{game.game_result} win'})
+    return dumps({'move': game.board, 'invalid': False, 'status': f'{game.game_result} win', 'winner': game.game_result})
 
 
 '''
@@ -125,18 +126,19 @@ def p2_move():
 
     error_reason = check_common_error(x, y, 'p2')
     if error_reason is not None:
-        return dumps({'move': game.board, 'invalid': True, 'reason': f'{error_reason}'})
+        return dumps({'move': game.board, 'invalid': True, 'reason': f'{error_reason}', 'winner': game.game_result})
 
     '''
     Update board if no error found
     '''
+    game.remaining_moves -= 1
     game.board[x][y] = game.player2
     game.current_turn = 'p1'
 
     if is_win(x, y, game.player2):
         game.game_result = 'p2'
 
-    return dumps({'move': game.board, 'invalid': False, 'status': f'{game.game_result} win'})
+    return dumps({'move': game.board, 'invalid': False, 'status': f'{game.game_result} win', 'winner': game.game_result})
 
 
 def check_common_error(x, y, player):
@@ -144,10 +146,16 @@ def check_common_error(x, y, player):
         return f'position is unreachable - out of the board. {x}, {y}'
 
     if game.current_turn != player:
-        return 'Invalid turn.'
+        return 'Not your turn.'
 
     if game.board[x][y] != 0:
         return 'Slot already be taken'
+
+    if game.game_result != "":
+        return f'Game is over. The winner is {game.game_result}'
+
+    if game.remaining_moves == 0:
+        return 'There is no slot for new move.'
 
 
 def get_x_axis_value(y):
