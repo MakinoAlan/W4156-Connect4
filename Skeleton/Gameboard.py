@@ -10,7 +10,17 @@ class Gameboard():
         self.current_turn = 'p1'
         self.remaining_moves = 42
 
+    def move(self, x, y, player):
+        if player == 'p1':
+            self.board[x][y] = self.player1
+            self.current_turn = 'p2'
+        else:
+            self.board[x][y] = self.player2
+            self.current_turn = 'p1'
+        self.remaining_moves -= 1
 
-'''
-Add Helper functions as needed to handle moves and update board and turns
-'''
+    def is_tie(self):
+        if self.remaining_moves == 0:
+            self.game_result = "tie"
+            return True
+        return False

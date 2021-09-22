@@ -98,9 +98,7 @@ def p1_move():
     if error_reason is not None:
         return dumps({'move': game.board, 'invalid': True, 'reason': f'{error_reason}', 'winner': game.game_result})
 
-    game.remaining_moves -= 1
-    game.board[x][y] = game.player1
-    game.current_turn = 'p2'
+    game.move(x, y, 'p1')
 
     if is_win(x, y, game.player1):
         game.game_result = 'p1'
@@ -109,7 +107,7 @@ def p1_move():
 
 
 '''
-Same as '/move1' but instead proccess Player 2
+Same as '/move1' but instead process Player 2
 '''
 
 
@@ -128,12 +126,7 @@ def p2_move():
     if error_reason is not None:
         return dumps({'move': game.board, 'invalid': True, 'reason': f'{error_reason}', 'winner': game.game_result})
 
-    '''
-    Update board if no error found
-    '''
-    game.remaining_moves -= 1
-    game.board[x][y] = game.player2
-    game.current_turn = 'p1'
+    game.move(x, y, 'p2')
 
     if is_win(x, y, game.player2):
         game.game_result = 'p2'
@@ -156,6 +149,9 @@ def check_common_error(x, y, player):
 
     if game.remaining_moves == 0:
         return 'There is no slot for new move.'
+
+    if game.is_tie():
+        return 'Game board is full, tie.'
 
 
 def get_x_axis_value(y):
