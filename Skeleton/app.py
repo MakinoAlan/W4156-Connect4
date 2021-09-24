@@ -92,15 +92,15 @@ Process Player 1's move
 def p1_move():
     payload = request.get_json()
     y = int(payload['column'][-1]) - 1
-    x = get_x_axis_value(y)
+    x = game.get_x_axis_value(y)
 
-    error_reason = check_common_error(x, y, 'p1')
+    error_reason = game.check_common_error(x, y, 'p1')
     if error_reason is not None:
         return dumps({'move': game.board, 'invalid': True, 'reason': f'{error_reason}', 'winner': game.game_result})
 
     game.move(x, y, 'p1')
 
-    if is_win(x, y, game.player1):
+    if game.is_win(x, y, game.player1):
         game.game_result = 'p1'
 
     return dumps({'move': game.board, 'invalid': False, 'status': f'{game.game_result} win', 'winner': game.game_result})
@@ -115,138 +115,23 @@ Same as '/move1' but instead process Player 2
 def p2_move():
     payload = request.get_json()
     y = int(payload['column'][-1]) - 1
-    x = get_x_axis_value(y)
+    x = game.get_x_axis_value(y)
 
     '''
     Completeness check
     Though it is almost impossible, server side should handle all potential case
     '''
 
-    error_reason = check_common_error(x, y, 'p2')
+    error_reason = game.check_common_error(x, y, 'p2')
     if error_reason is not None:
         return dumps({'move': game.board, 'invalid': True, 'reason': f'{error_reason}', 'winner': game.game_result})
 
     game.move(x, y, 'p2')
 
-    if is_win(x, y, game.player2):
+    if game.is_win(x, y, game.player2):
         game.game_result = 'p2'
 
     return dumps({'move': game.board, 'invalid': False, 'status': f'{game.game_result} win', 'winner': game.game_result})
-
-
-def check_common_error(x, y, player):
-    if x >= 6 or x < 0 or y >= 7 or y < 0:
-        return f'position is unreachable - out of the board. {x}, {y}'
-
-    if game.current_turn != player:
-        return 'Not your turn.'
-
-    if game.board[x][y] != 0:
-        return 'Slot already be taken'
-
-    if game.game_result != "":
-        return f'Game is over. The winner is {game.game_result}'
-
-    if game.remaining_moves == 0:
-        return 'There is no slot for new move.'
-
-    if game.is_tie():
-        return 'Game board is full, tie.'
-
-
-def get_x_axis_value(y):
-    for i in range(5, -1, -1):
-        if game.board[i][y] == 0:
-            return i
-    return -1
-
-
-def is_win(x, y, color):
-    return is_row_win(x, y, color) or is_column_win(x, y, color) or is_diagonal_win(x, y, color)
-
-
-def is_row_win(x, y, color):
-    counter_row = 0
-    for i in range(y, 7, 1):
-        if game.board[x][i] == color:
-            counter_row += 1
-            if counter_row == 4:
-                return True
-        else:
-            break
-    counter_row -= 1;
-    for i in range(y, -1, -1):
-        if game.board[x][i] == color:
-            counter_row += 1
-            if counter_row == 4:
-                return True
-        else:
-            break
-    return False
-
-
-'''
-Base on the game rule, for column we only need to check downside
-'''
-
-
-def is_column_win(x, y, color):
-    counter_col = 0
-    for i in range(x, 6, 1):
-        if i >= 6:
-            break
-        if game.board[i][y] == color:
-            counter_col += 1
-            if counter_col == 4:
-                return True
-        else:
-            break
-    return False
-
-
-def is_diagonal_win(x, y, color):
-    counter_diagonal = 1
-    i = 1
-    while x - i >= 0 and y - i >= 0:
-        if game.board[x - i][y - i] == color:
-            counter_diagonal += 1
-            i += 1
-            if counter_diagonal == 4:
-                return True
-        else:
-            break
-
-    i = 1
-    while x + i < 6 and y + i < 7:
-        if game.board[x + i][y + i] == color:
-            counter_diagonal += 1
-            i += 1
-            if counter_diagonal == 4:
-                return True
-        else:
-            break
-
-    counter_diagonal = 1
-    i = 1
-    while x - i >= 0 and y + i < 7:
-        if game.board[x - i][y + i] == color:
-            counter_diagonal += 1
-            i += 1
-            if counter_diagonal == 4:
-                return True
-        else:
-            break
-
-    i = 1
-    while x + i < 6 and y - i >= 0:
-        if game.board[x + i][y - i] == color:
-            counter_diagonal += 1
-            i += 1
-            if counter_diagonal == 4:
-                return True
-        else:
-            break
-    return False
 
 
 if __name__ == '__main__':
