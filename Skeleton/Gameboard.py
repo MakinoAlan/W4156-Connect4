@@ -38,9 +38,6 @@ class Gameboard():
         if self.game_result != "":
             return f'Game is over. The winner is {self.game_result}'
 
-        if self.remaining_moves == 0:
-            return 'There is no slot for new move.'
-
         if self.is_tie():
             return 'Game board is full, tie.'
 
@@ -62,7 +59,7 @@ class Gameboard():
                     return True
             else:
                 break
-        counter_row -= 1;
+        counter_row -= 1
         for i in range(y, -1, -1):
             if self.board[x][i] == color:
                 counter_row += 1
