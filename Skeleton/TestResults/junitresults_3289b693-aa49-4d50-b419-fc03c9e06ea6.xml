@@ -1,0 +1,103 @@
+<?xml version="1.0" encoding="utf-8"?><testsuites><testsuite name="pytest" errors="0" failures="0" skipped="0" tests="17" time="0.047" timestamp="2021-09-26T22:29:41.929399" hostname="DESKTOP-N1F7SE7"><testcase classname="test_Gameboard.TestStringMethods" name="test_checkCommonError_invalidPlayerForCurrentTurn_returnErrorMessage" file="test_Gameboard.py" line="49" time="0.001"><system-out>--------------------------------- Captured Log ---------------------------------
+
+--------------------------------- Captured Out ---------------------------------
+
+</system-out><system-err>--------------------------------- Captured Err ---------------------------------
+
+</system-err></testcase><testcase classname="test_Gameboard.TestStringMethods" name="test_isRowWin_winConditionNotExists_returnFalse" file="test_Gameboard.py" line="88" time="0.001"><system-out>--------------------------------- Captured Log ---------------------------------
+
+--------------------------------- Captured Out ---------------------------------
+
+</system-out><system-err>--------------------------------- Captured Err ---------------------------------
+
+</system-err></testcase><testcase classname="test_Gameboard.TestStringMethods" name="test_getXAxisValue_fullInRow_returnMinusOne" file="test_Gameboard.py" line="75" time="0.001"><system-out>--------------------------------- Captured Log ---------------------------------
+
+--------------------------------- Captured Out ---------------------------------
+
+</system-out><system-err>--------------------------------- Captured Err ---------------------------------
+
+</system-err></testcase><testcase classname="test_Gameboard.TestStringMethods" name="test_isTie_remainingMovesIsNot0_returnFalse" file="test_Gameboard.py" line="40" time="0.000"><system-out>--------------------------------- Captured Log ---------------------------------
+
+--------------------------------- Captured Out ---------------------------------
+
+</system-out><system-err>--------------------------------- Captured Err ---------------------------------
+
+</system-err></testcase><testcase classname="test_Gameboard.TestStringMethods" name="test_isColumnWin_winConditionExists_returnTrue" file="test_Gameboard.py" line="94" time="0.001"><system-out>--------------------------------- Captured Log ---------------------------------
+
+--------------------------------- Captured Out ---------------------------------
+
+</system-out><system-err>--------------------------------- Captured Err ---------------------------------
+
+</system-err></testcase><testcase classname="test_Gameboard.TestStringMethods" name="test_isTie_remainingMovesIs0_returnTrue" file="test_Gameboard.py" line="35" time="0.001"><system-out>--------------------------------- Captured Log ---------------------------------
+
+--------------------------------- Captured Out ---------------------------------
+
+</system-out><system-err>--------------------------------- Captured Err ---------------------------------
+
+</system-err></testcase><testcase classname="test_Gameboard.TestStringMethods" name="test_isRowWin_winConditionExists_returnTrue" file="test_Gameboard.py" line="82" time="0.001"><system-out>--------------------------------- Captured Log ---------------------------------
+
+--------------------------------- Captured Out ---------------------------------
+
+</system-out><system-err>--------------------------------- Captured Err ---------------------------------
+
+</system-err></testcase><testcase classname="test_Gameboard.TestStringMethods" name="test_checkCommonError_hasGameResult_returnGameOverMessage" file="test_Gameboard.py" line="59" time="0.000"><system-out>--------------------------------- Captured Log ---------------------------------
+
+--------------------------------- Captured Out ---------------------------------
+
+</system-out><system-err>--------------------------------- Captured Err ---------------------------------
+
+</system-err></testcase><testcase classname="test_Gameboard.TestStringMethods" name="test_move_p2ValidMove_updateBoard" file="test_Gameboard.py" line="26" time="0.001"><system-out>--------------------------------- Captured Log ---------------------------------
+
+--------------------------------- Captured Out ---------------------------------
+
+</system-out><system-err>--------------------------------- Captured Err ---------------------------------
+
+</system-err></testcase><testcase classname="test_Gameboard.TestStringMethods" name="test_checkCommonError_moveOnTakenSpot_returnErrorMessage" file="test_Gameboard.py" line="54" time="0.001"><system-out>--------------------------------- Captured Log ---------------------------------
+
+--------------------------------- Captured Out ---------------------------------
+
+</system-out><system-err>--------------------------------- Captured Err ---------------------------------
+
+</system-err></testcase><testcase classname="test_Gameboard.TestStringMethods" name="test_isColumnWin_winConditionNotExists_returnFalse" file="test_Gameboard.py" line="100" time="0.001"><system-out>--------------------------------- Captured Log ---------------------------------
+
+--------------------------------- Captured Out ---------------------------------
+
+</system-out><system-err>--------------------------------- Captured Err ---------------------------------
+
+</system-err></testcase><testcase classname="test_Gameboard.TestStringMethods" name="test_move_p1ValidMove_updateBoard" file="test_Gameboard.py" line="17" time="0.001"><system-out>--------------------------------- Captured Log ---------------------------------
+
+--------------------------------- Captured Out ---------------------------------
+
+</system-out><system-err>--------------------------------- Captured Err ---------------------------------
+
+</system-err></testcase><testcase classname="test_Gameboard.TestStringMethods" name="test_init_byDefault_dataLoadCorrectly" file="test_Gameboard.py" line="6" time="0.001"><system-out>--------------------------------- Captured Log ---------------------------------
+
+--------------------------------- Captured Out ---------------------------------
+
+</system-out><system-err>--------------------------------- Captured Err ---------------------------------
+
+</system-err></testcase><testcase classname="test_Gameboard.TestStringMethods" name="test_checkCommonError_invalidPosition_returnErrorMessage" file="test_Gameboard.py" line="45" time="0.001"><system-out>--------------------------------- Captured Log ---------------------------------
+
+--------------------------------- Captured Out ---------------------------------
+
+</system-out><system-err>--------------------------------- Captured Err ---------------------------------
+
+</system-err></testcase><testcase classname="test_Gameboard.TestStringMethods" name="test_isDiagonalWin_winConditionExists_returnTrue" file="test_Gameboard.py" line="114" time="0.000"><system-out>--------------------------------- Captured Log ---------------------------------
+
+--------------------------------- Captured Out ---------------------------------
+
+</system-out><system-err>--------------------------------- Captured Err ---------------------------------
+
+</system-err></testcase><testcase classname="test_Gameboard.TestStringMethods" name="test_checkCommonError_remainingMoveIsO_returnErrorMessage" file="test_Gameboard.py" line="64" time="0.000"><system-out>--------------------------------- Captured Log ---------------------------------
+
+--------------------------------- Captured Out ---------------------------------
+
+</system-out><system-err>--------------------------------- Captured Err ---------------------------------
+
+</system-err></testcase><testcase classname="test_Gameboard.TestStringMethods" name="test_getXAxisValue_validXValueExist_returnXValue" file="test_Gameboard.py" line="69" time="0.001"><system-out>--------------------------------- Captured Log ---------------------------------
+
+--------------------------------- Captured Out ---------------------------------
+
+</system-out><system-err>--------------------------------- Captured Err ---------------------------------
+
+</system-err></testcase></testsuite></testsuites>
