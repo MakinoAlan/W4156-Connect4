@@ -76,8 +76,6 @@ class Gameboard():
     def is_column_win(self, x, y, color):
         counter_col = 0
         for i in range(x, 6, 1):
-            if i >= 6:
-                break
             if self.board[i][y] == color:
                 counter_col += 1
                 if counter_col == 4:
@@ -96,9 +94,9 @@ class Gameboard():
                 if counter_diagonal == 4:
                     return True
             else:
+                i = 1
                 break
 
-        i = 1
         while x + i < 6 and y + i < 7:
             if self.board[x + i][y + i] == color:
                 counter_diagonal += 1
@@ -106,10 +104,10 @@ class Gameboard():
                 if counter_diagonal == 4:
                     return True
             else:
+                counter_diagonal = 1
+                i = 1
                 break
 
-        counter_diagonal = 1
-        i = 1
         while x - i >= 0 and y + i < 7:
             if self.board[x - i][y + i] == color:
                 counter_diagonal += 1
@@ -117,9 +115,9 @@ class Gameboard():
                 if counter_diagonal == 4:
                     return True
             else:
+                i = 1
                 break
 
-        i = 1
         while x + i < 6 and y - i >= 0:
             if self.board[x + i][y - i] == color:
                 counter_diagonal += 1
@@ -127,5 +125,6 @@ class Gameboard():
                 if counter_diagonal == 4:
                     return True
             else:
+                i = 1
                 break
         return False

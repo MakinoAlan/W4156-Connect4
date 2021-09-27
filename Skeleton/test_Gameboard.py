@@ -86,11 +86,17 @@ class test_Gameboard(unittest.TestCase):
             game.board[1][i] = 'yellow'
         self.assertEqual(True, game.is_win(1, 3, 'yellow'))
 
-    def test_isRowWin_winConditionExists_returnTrue(self):
+    def test_isRowWin_winConditionExistsEast_returnTrue(self):
         game = Gameboard()
         for i in range(4):
             game.board[1][i] = 'yellow'
         self.assertEqual(True, game.is_row_win(1, 3, 'yellow'))
+
+    def test_isRowWin_winConditionExistsEast_returnTrue(self):
+        game = Gameboard()
+        for i in range(4):
+            game.board[1][i] = 'yellow'
+        self.assertEqual(True, game.is_row_win(1, 0, 'yellow'))
 
     def test_isRowWin_winConditionNotExists_returnFalse(self):
         game = Gameboard()
@@ -110,6 +116,10 @@ class test_Gameboard(unittest.TestCase):
             game.board[5 - i][1] = 'red'
         self.assertEqual(False, game.is_column_win(2, 1, 'red'))
 
+    def test_isColumnWin_invalidInput_returnFalse(self):
+        game = Gameboard()
+        self.assertEqual(False, game.is_column_win(8, 1, 'red'))
+
     def test_isDiagonalWin_winConditionExistsNorthWest_returnTrue(self):
         game = Gameboard()
         game.board[5][6] = 'red'
@@ -122,7 +132,7 @@ class test_Gameboard(unittest.TestCase):
         game = Gameboard()
         game.board[5][6] = 'red'
         game.board[2][3] = 'red'
-        self.assertEqual(False, game.is_diagonal_win(2, 3, 'red'))
+        self.assertEqual(False, game.is_diagonal_win(1, 4, 'yellow'))
 
     def test_isDiagonalWin_winConditionExistsSouthEast_returnTrue(self):
         game = Gameboard()
