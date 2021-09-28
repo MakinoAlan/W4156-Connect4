@@ -92,7 +92,7 @@ class test_Gameboard(unittest.TestCase):
             game.board[1][i] = 'yellow'
         self.assertEqual(True, game.is_row_win(1, 3, 'yellow'))
 
-    def test_isRowWin_winConditionExistsEast_returnTrue(self):
+    def test_isRowWin_winConditionExistsWest_returnTrue(self):
         game = Gameboard()
         for i in range(4):
             game.board[1][i] = 'yellow'

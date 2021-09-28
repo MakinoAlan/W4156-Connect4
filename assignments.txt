@@ -94,7 +94,7 @@ it called test_foo.py
 Once you create these files `import unittest`. It should already come with visual studio so no need for pip installing anything.
 
 Next, you need to define a test class. Using test_Gameboard.py as an example the way to implement the class would be as follows:
-"class Test_TestGameboard(unittest.TestCase):"
+"class Test_TestGameboard(unittest.TestCase):"------------
 
 within this class definition is where you will create your test methods to verify that 1 they work and catch edge cases as intended, and 
 2 your implementation covers as many branches as possible.
