@@ -1,12 +1,11 @@
-from flask import Flask, render_template, request, redirect, jsonify
-from json import dump, dumps
+import logging
+from flask import Flask, render_template, request, jsonify
+from json import dumps
 from Gameboard import Gameboard
-import db
 
 
 app = Flask(__name__)
 
-import logging
 log = logging.getLogger('werkzeug')
 log.setLevel(logging.ERROR)
 
@@ -68,7 +67,6 @@ Assign player2 their color
 
 @app.route('/p2Join', methods=['GET'])
 def p2Join():
-    color = request.args.get('color')
     if game.player1 == '':
         return render_template('p2Join.html', status='Error')
     p2_color = 'yellow' if game.player1 == 'red' else 'red'
@@ -96,14 +94,22 @@ def p1_move():
 
     error_reason = game.check_common_error(x, y, 'p1')
     if error_reason is not None:
-        return dumps({'move': game.board, 'invalid': True, 'reason': f'{error_reason}', 'winner': game.game_result})
+        return dumps({
+            'move': game.board,
+            'invalid': True,
+            'reason': f'{error_reason}',
+            'winner': game.game_result})
 
     game.move(x, y, 'p1')
 
     if game.is_win(x, y, game.player1):
         game.game_result = 'p1'
 
-    return dumps({'move': game.board, 'invalid': False, 'status': f'{game.game_result} win', 'winner': game.game_result})
+    return dumps({
+        'move': game.board,
+        'invalid': False,
+        'status': f'{game.game_result} win',
+        'winner': game.game_result})
 
 
 '''
@@ -119,19 +125,26 @@ def p2_move():
 
     '''
     Completeness check
-    Though it is almost impossible, server side should handle all potential case
     '''
 
     error_reason = game.check_common_error(x, y, 'p2')
     if error_reason is not None:
-        return dumps({'move': game.board, 'invalid': True, 'reason': f'{error_reason}', 'winner': game.game_result})
+        return dumps({
+            'move': game.board,
+            'invalid': True,
+            'reason': f'{error_reason}',
+            'winner': game.game_result})
 
     game.move(x, y, 'p2')
 
     if game.is_win(x, y, game.player2):
         game.game_result = 'p2'
 
-    return dumps({'move': game.board, 'invalid': False, 'status': f'{game.game_result} win', 'winner': game.game_result})
+    return dumps({
+        'move': game.board,
+        'invalid': False,
+        'status': f'{game.game_result} win',
+        'winner': game.game_result})
 
 
 if __name__ == '__main__':

@@ -1,6 +1,3 @@
-import db
-
-
 class Gameboard():
     def __init__(self):
         self.player1 = ""
@@ -48,7 +45,9 @@ class Gameboard():
         return -1
 
     def is_win(self, x, y, color):
-        return self.is_row_win(x, y, color) or self.is_column_win(x, y, color) or self.is_diagonal_win(x, y, color)
+        return self.is_row_win(x, y, color) or \
+               self.is_column_win(x, y, color) or \
+               self.is_diagonal_win(x, y, color)
 
     def is_row_win(self, x, y, color):
         counter_row = 0

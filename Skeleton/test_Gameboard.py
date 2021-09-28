@@ -45,9 +45,11 @@ class test_Gameboard(unittest.TestCase):
 
     def test_checkCommonError_invalidPosition_returnErrorMessage(self):
         game = Gameboard()
-        self.assertEqual('position is unreachable - out of the board. 100, 100', game.check_common_error(100, 100, 'p1'))
+        self.assertEqual(
+            'position is unreachable - out of the board. 100, 100',
+            game.check_common_error(100, 100, 'p1'))
 
-    def test_checkCommonError_invalidPlayerForCurrentTurn_returnErrorMessage(self):
+    def test_checkCommonError_invalidCurrentTurn_returnErrorMessage(self):
         game = Gameboard()
         game.current_turn = 'p1'
         self.assertEqual('Not your turn.', game.check_common_error(0, 0, 'p2'))
@@ -55,17 +57,23 @@ class test_Gameboard(unittest.TestCase):
     def test_checkCommonError_moveOnTakenSpot_returnErrorMessage(self):
         game = Gameboard()
         game.board[1][1] = 'red'
-        self.assertEqual('Slot already be taken', game.check_common_error(1, 1, 'p1'))
+        self.assertEqual(
+            'Slot already be taken',
+            game.check_common_error(1, 1, 'p1'))
 
     def test_checkCommonError_hasGameResult_returnGameOverMessage(self):
         game = Gameboard()
         game.game_result = 'p1'
-        self.assertEqual('Game is over. The winner is p1', game.check_common_error(1, 1, 'p1'))
+        self.assertEqual(
+            'Game is over. The winner is p1',
+            game.check_common_error(1, 1, 'p1'))
 
     def test_checkCommonError_remainingMoveIsO_returnErrorMessage(self):
         game = Gameboard()
         game.remaining_moves = 0
-        self.assertEqual('Game board is full, tie.', game.check_common_error(1, 1, 'p1'))
+        self.assertEqual(
+            'Game board is full, tie.',
+            game.check_common_error(1, 1, 'p1'))
 
     def test_getXAxisValue_validXValueExist_returnXValue(self):
         game = Gameboard()
