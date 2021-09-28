@@ -4,6 +4,13 @@ from Gameboard import Gameboard
 
 class test_Gameboard(unittest.TestCase):
 
+    """
+    I use the following standard for unittest name
+    test_function_input/condition_expected_result
+    This provides all the details
+    Therefore I will not add comment for subtest
+    """
+
     def test_init_byDefault_dataLoadCorrectly(self):
         game = Gameboard()
         self.assertEqual('', game.player1)
