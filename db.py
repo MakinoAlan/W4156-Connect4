@@ -1,5 +1,7 @@
 import sqlite3
 from sqlite3 import Error, Connection
+from Gameboard import Gameboard
+import numpy as np
 from json import dumps
 
 '''
@@ -61,10 +63,9 @@ def getMove():
         cur = conn.cursor()
         cur.execute("select * from GAME")
 
-        test = cur.fetchall()[-1]
-        test1 = cur.fetchone()
+        last_row = cur.fetchall()[-1]
 
-        return cur.fetchall()[-1]
+        return Gameboard.from_db(last_row[3], last_row[4], eval(last_row[1]), last_row[2], last_row[0], last_row[5])
     except Error as e:
         print(e)
         return None
