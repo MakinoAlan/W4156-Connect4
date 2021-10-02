@@ -1,4 +1,5 @@
 import logging
+import db
 from flask import Flask, render_template, request, jsonify
 from json import dumps
 from Gameboard import Gameboard
@@ -22,7 +23,9 @@ Initial Webpage where gameboard is initialized
 @app.route('/', methods=['GET'])
 def player1_connect():
     global game
-    game = Gameboard()
+    game = db.getMove()
+    if game is None:
+        game = Gameboard()
     return render_template('player1_connect.html', status='Pick a Color.')
 
 
@@ -105,6 +108,8 @@ def p1_move():
     if game.is_win(x, y, game.player1):
         game.game_result = 'p1'
 
+    db.add_move(game)
+
     return dumps({
         'move': game.board,
         'invalid': False,
@@ -139,6 +144,8 @@ def p2_move():
 
     if game.is_win(x, y, game.player2):
         game.game_result = 'p2'
+
+    db.add_move(game)
 
     return dumps({
         'move': game.board,
