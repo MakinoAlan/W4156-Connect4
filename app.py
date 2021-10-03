@@ -11,6 +11,7 @@ log = logging.getLogger('werkzeug')
 log.setLevel(logging.ERROR)
 
 game = Gameboard()
+db.init_db()
 
 '''
 Implement '/' endpoint
@@ -23,9 +24,16 @@ Initial Webpage where gameboard is initialized
 @app.route('/', methods=['GET'])
 def player1_connect():
     global game
-    game = db.getMove()
-    if game is None:
-        game = Gameboard()
+    last_state = db.getMove()
+    if last_state is not None:
+        game.board = last_state[1]
+        game.current_turn = last_state[0]
+        game.game_result = last_state[2]
+        game.player1 = last_state[3]
+        game.player2 = last_state[4]
+        game.remaining_moves = last_state[5]
+        if game.player1 != '':
+            return render_template('player1_connect.html', status=f'{game.player1} picked')
     return render_template('player1_connect.html', status='Pick a Color.')
 
 
@@ -55,6 +63,7 @@ Assign player1 their color
 def player1_config():
     color = request.args.get('color')
     game.player1 = color
+    db.add_move(game)
     return render_template('player1_connect.html', status=f'{color} picked')
 
 
@@ -74,6 +83,7 @@ def p2Join():
         return render_template('p2Join.html', status='Error')
     p2_color = 'yellow' if game.player1 == 'red' else 'red'
     game.player2 = p2_color
+    db.add_move(game)
     return render_template('p2Join.html', status=f'{p2_color} picked')
 
 

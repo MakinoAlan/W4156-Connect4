@@ -1,8 +1,6 @@
 import sqlite3
 from sqlite3 import Error, Connection
 from Gameboard import Gameboard
-import numpy as np
-from json import dumps
 
 '''
 Initializes the Table GAME
@@ -39,6 +37,14 @@ def add_move(move):  # will take in a tuple
     try:
         conn = sqlite3.connect('sqlite_db')
         cur = conn.cursor()
+
+        for i in range(len(move.board)):
+            for j in range(len(move.board[i])):
+                if move.board[i][j] == 'red':
+                    move.board[i][j] = 1
+                if move.board[i][j] == 'yellow':
+                    move.board[i][j] = 2
+
         cur.execute(f"INSERT INTO GAME VALUES('{move.current_turn}', '{move.board}'," +
                     f"'{move.game_result}', '{move.player1}', '{move.player2}', {move.remaining_moves})")
         conn.commit()
@@ -63,9 +69,22 @@ def getMove():
         cur = conn.cursor()
         cur.execute("select * from GAME")
 
-        last_row = cur.fetchall()[-1]
+        rows = cur.fetchall()
 
-        return Gameboard.from_db(last_row[3], last_row[4], eval(last_row[1]), last_row[2], last_row[0], last_row[5])
+        if len(rows) == 0:
+            return None
+
+        last_row = list(rows[-1])
+        last_row[1] = eval(last_row[1])
+
+        for i in range(len(last_row[1])):
+            for j in range(len(last_row[1][i])):
+                if last_row[1][i][j] == 1:
+                    last_row[1][i][j] = 'red'
+                if last_row[1][i][j] == 2:
+                    last_row[1][i][j] = 'yellow'
+
+        return last_row
     except Error as e:
         print(e)
         return None
