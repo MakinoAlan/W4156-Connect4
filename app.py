@@ -12,6 +12,7 @@ log.setLevel(logging.ERROR)
 
 game = Gameboard()
 db.init_db()
+isReset = False
 
 '''
 Implement '/' endpoint
@@ -24,17 +25,14 @@ Initial Webpage where gameboard is initialized
 @app.route('/', methods=['GET'])
 def player1_connect():
     global game
-    last_state = db.getMove()
-    if last_state is not None:
-        game = Gameboard()
-        game.board = last_state[1]
-        game.current_turn = last_state[0]
-        game.game_result = last_state[2]
-        game.player1 = last_state[3]
-        game.player2 = last_state[4]
-        game.remaining_moves = last_state[5]
-        if game.player1 != '':
-            return render_template('player1_connect.html', status=f'{game.player1} picked')
+    global isReset
+    isReset = True
+    game.player1 = ''
+    game.player2 = ''
+    game.board = [[0 for x in range(7)] for y in range(6)]
+    game.game_result = ""
+    game.current_turn = 'p1'
+    game.remaining_moves = 42
     return render_template('player1_connect.html', status='Pick a Color.')
 
 
@@ -62,10 +60,19 @@ Assign player1 their color
 
 @app.route('/p1Color', methods=['GET'])
 def player1_config():
-    color = request.args.get('color')
-    game.player1 = color
-    db.add_move(game)
-    return render_template('player1_connect.html', status=f'{color} picked')
+    last_state = db.getMove()
+    if last_state is not None and not isReset:
+        game.board = last_state[1]
+        game.current_turn = last_state[0]
+        game.game_result = last_state[2]
+        game.player1 = last_state[3]
+        game.player2 = last_state[4]
+        game.remaining_moves = last_state[5]
+    else:
+        color = request.args.get('color')
+        game.player1 = color
+        db.add_move(game)
+    return render_template('player1_connect.html', status=f'{game.player1} picked')
 
 
 '''
@@ -80,14 +87,23 @@ Assign player2 their color
 
 @app.route('/p2Join', methods=['GET'])
 def p2Join():
-    if game.player1 != '' and game.player2 != '':
-        return render_template('p2Join.html', status=f'{game.player2} picked')
-    if game.player1 == '':
-        return render_template('p2Join.html', status='Error')
-    p2_color = 'yellow' if game.player1 == 'red' else 'red'
-    game.player2 = p2_color
-    db.add_move(game)
-    return render_template('p2Join.html', status=f'{p2_color} picked')
+    last_state = db.getMove()
+    if last_state is not None and not isReset:
+        game.board = last_state[1]
+        game.current_turn = last_state[0]
+        game.game_result = last_state[2]
+        game.player1 = last_state[3]
+        game.player2 = last_state[4]
+        game.remaining_moves = last_state[5]
+    else:
+        if game.player1 != '' and game.player2 != '':
+            return render_template('p2Join.html', status=f'{game.player2} picked')
+        if game.player1 == '':
+            return render_template('p2Join.html', status='Error')
+        p2_color = 'yellow' if game.player1 == 'red' else 'red'
+        game.player2 = p2_color
+        db.add_move(game)
+    return render_template('p2Join.html', status=f'{game.player2} picked')
 
 
 '''
