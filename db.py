@@ -1,6 +1,6 @@
 import sqlite3
 from sqlite3 import Error, Connection
-from Gameboard import Gameboard
+import copy
 
 '''
 Initializes the Table GAME
@@ -38,14 +38,15 @@ def add_move(move):  # will take in a tuple
         conn = sqlite3.connect('sqlite_db')
         cur = conn.cursor()
 
-        for i in range(len(move.board)):
-            for j in range(len(move.board[i])):
-                if move.board[i][j] == 'red':
-                    move.board[i][j] = 1
-                if move.board[i][j] == 'yellow':
-                    move.board[i][j] = 2
+        board_to_save = copy.deepcopy(move.board)
+        for i in range(len(board_to_save)):
+            for j in range(len(board_to_save[i])):
+                if board_to_save[i][j] == 'red':
+                    board_to_save[i][j] = 1
+                if board_to_save[i][j] == 'yellow':
+                    board_to_save[i][j] = 2
 
-        cur.execute(f"INSERT INTO GAME VALUES('{move.current_turn}', '{move.board}'," +
+        cur.execute(f"INSERT INTO GAME VALUES('{move.current_turn}', '{board_to_save}'," +
                     f"'{move.game_result}', '{move.player1}', '{move.player2}', {move.remaining_moves})")
         conn.commit()
     except Error as e:
@@ -104,6 +105,7 @@ def clear():
     try:
         conn = sqlite3.connect('sqlite_db')
         conn.execute("DROP TABLE GAME")
+        conn.commit()
         print('Database Cleared')
     except Error as e:
         print(e)

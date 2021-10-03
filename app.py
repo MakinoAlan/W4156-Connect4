@@ -26,6 +26,7 @@ def player1_connect():
     global game
     last_state = db.getMove()
     if last_state is not None:
+        game = Gameboard()
         game.board = last_state[1]
         game.current_turn = last_state[0]
         game.game_result = last_state[2]
@@ -79,6 +80,8 @@ Assign player2 their color
 
 @app.route('/p2Join', methods=['GET'])
 def p2Join():
+    if game.player1 != '' and game.player2 != '':
+        return render_template('p2Join.html', status=f'{game.player2} picked')
     if game.player1 == '':
         return render_template('p2Join.html', status='Error')
     p2_color = 'yellow' if game.player1 == 'red' else 'red'
@@ -117,8 +120,9 @@ def p1_move():
 
     if game.is_win(x, y, game.player1):
         game.game_result = 'p1'
-
-    db.add_move(game)
+        db.clear()
+    else:
+        db.add_move(game)
 
     return dumps({
         'move': game.board,
@@ -154,8 +158,9 @@ def p2_move():
 
     if game.is_win(x, y, game.player2):
         game.game_result = 'p2'
-
-    db.add_move(game)
+        db.clear()
+    else:
+        db.add_move(game)
 
     return dumps({
         'move': game.board,
