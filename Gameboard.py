@@ -7,16 +7,6 @@ class Gameboard():
         self.current_turn = 'p1'
         self.remaining_moves = 42
 
-    @classmethod
-    def from_db(cls, player1, player2, board, game_result, current_turn, remaining_moves):
-        cls.player1 = player1
-        cls.player2 = player2
-        cls.board = board
-        cls.game_result = game_result
-        cls.current_turn = current_turn
-        cls.remaining_moves = remaining_moves
-        return cls
-
     def move(self, x, y, player):
         if player == 'p1':
             self.board[x][y] = self.player1
