@@ -4,7 +4,7 @@ FullName: Muzhi Yang\
 Uni: my2739\
 Demo link for Assignment 1: https://youtu.be/KQ2d-KvQx98 <br />Please use main branch for assignment1 grading. Thanks<br />
 Demo link for Assignment 2: https://youtu.be/MCf8vy8BPn8
-<br />Please use assignment2 branch for assignment1 grading. Thanks<br />
+<br />Please use assignment2 branch for assignment2 grading. Thanks<br />
 Demo link for Assignment 3: https://youtu.be/t81b4ZUarRo
-<br />Please use assignment3 branch for assignment1 grading. Thanks<br />
+<br />Please use assignment3 branch for assignment3 grading. Thanks<br />
 
